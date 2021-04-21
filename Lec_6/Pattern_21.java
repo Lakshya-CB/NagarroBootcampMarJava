@@ -15,7 +15,7 @@ public class Pattern_21 {
 			}
 			int cst = 1;
 			if(row==n) {
-				nst=nst-1;
+				cst=cst-1;
 			}
 			for (; cst <= nst; cst = cst + 1) {
 				System.out.print("* ");
