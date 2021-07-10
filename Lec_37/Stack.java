@@ -1,8 +1,8 @@
 package Lec_37;
 
 public class Stack {
-	int[] data;
-	int tos;
+	private int[] data;
+	private int tos;
 
 	public Stack() {
 		// TODO Auto-generated constructor stub
@@ -10,25 +10,37 @@ public class Stack {
 		tos = -1;
 	}
 
-	public Stack(int cap) {
+	public Stack(int capacity) {
 		// TODO Auto-generated constructor stub
-		data = new int[cap];
+		data = new int[capacity];
 		tos = -1;
 	}
 
-	public void push(int ele) {
+	public void push(int ele) throws Exception {
+		if(isFull()) {
+//			System.out.println("No !");
+			throw new Exception("Stack is Full!!");
+			
+		}
 		tos++;
 		data[tos] = ele;
 	}
 
-	public int pop() {
+	public int pop() throws Exception {
+		if(isEmpty()) {
+			throw new Exception("Stack is Empty!!");
+		}
 		int temp = data[tos];
+		
 		data[tos] = 0;
 		tos--;
 		return temp;
 	}
 
-	public int peek() {
+	public int peek() throws Exception {
+		if(isEmpty()) {
+			throw new Exception("Stack is Empty!!");
+		}
 		return data[tos];
 	}
 
