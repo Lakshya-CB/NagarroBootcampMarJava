@@ -3,6 +3,7 @@ package Lec_42;
 import java.util.Scanner;
 
 public class K_Swaps_Max {
+// 	This Code will NOt work , if the given number is Maximum because you will not be creating any Recursive calls and will not be hittin the condition of K=0
 	static int max= 0;
 	public static void main(String[] args) {
 		Scanner scn = new Scanner(System.in);
