@@ -4,6 +4,15 @@ public class Linked_List {
 	private class Node {
 		int data;
 		Node next;
+
+		public Node() {
+			// TODO Auto-generated constructor stub
+		}
+
+		public Node(int data) {
+			this.data = data;
+			// TODO Auto-generated constructor stub
+		}
 	}
 
 	Node head;
@@ -152,8 +161,7 @@ public class Linked_List {
 			return removeFirst();
 		} else if (idx == Size() - 1) {
 			return removeLast();
-		}
-		else {
+		} else {
 			Node temp1 = getNodeAt(idx - 1);
 			Node temp2 = temp1.next; // idx
 			Node temp3 = temp2.next; // idx+1
@@ -162,18 +170,139 @@ public class Linked_List {
 			return temp2.data;
 		}
 	}
+
 	public void Reverse() {
 		Node Prev = null;
 		Node Curr = head;
-		while(Curr!=null) {	
+		while (Curr != null) {
 			Node After = Curr.next;
-			
+
 //			Reverse!! Curr
-			Curr.next  =Prev;
+			Curr.next = Prev;
 //			Update!!
 			Prev = Curr;
 			Curr = After;
 		}
 		head = Prev;
 	}
+
+	public void Rev_rec1() {
+//		Rev_rec1(null, head);
+		Node temp = head;
+		Rev_rec1(head);
+		temp.next = null;
+	}
+
+	private void Rev_rec1(Node Prev, Node Curr) {
+		if (Curr == null) {
+//			Head update
+			head = Prev;
+			return;
+		}
+
+		Rev_rec1(Curr, Curr.next);
+
+		Curr.next = Prev;
+	}
+
+	private void Rev_rec1(Node Prev) {
+		Node Curr = Prev.next;
+		if (Curr == null) {
+//			Head update
+//			head.next =null;
+			head = Prev;
+
+			return;
+		}
+//		System.out.println("Hi " + Prev.data + " : " + Prev.next.data);
+		Rev_rec1(Curr);
+//		System.out.println("Bye " + Prev.data);
+		Prev.next.next = Prev;
+	}
+
+	public int Mid_point() {
+		Node slow = head;
+		Node fast = head;
+		while (fast.next.next != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		return slow.data;
+	}
+
+	public int Kth_last(int k) {
+		Node fast = head;
+		Node slow = head;
+//		Move fast by k step
+		for (int i = 0; i < k; i++) {
+			fast = fast.next;
+		}
+		while (fast != null) {
+			fast = fast.next;
+			slow = slow.next;
+		}
+
+		return slow.data;
+	}
+
+	public Node Inter_2_LL(Node head1, Node head2) {
+		// https://leetcode.com/problems/intersection-of-two-linked-lists/
+		Node car1 = head1;
+		Node car2 = head2;
+		while (car1 != car2) {
+			if (car1 == null) {
+				car1 = head2;
+			} else {
+				car1 = car1.next;
+			}
+			if (car2 == null) {
+				car2 = head1;
+			} else {
+				car2 = car2.next;
+			}
+		}
+		return car1;
+	}
+
+	public void make_2_LL_test_Inter() {
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		Node n6 = new Node(6);
+		Node n7 = new Node(7);
+		Node n8 = new Node(8);
+		Node n9 = new Node(9);
+		n1.next = n2;
+		n2.next = n3;
+		n3.next = n4;
+		n4.next = n5;
+		n5.next = n6;
+		n6.next = n7;
+		n7.next = n8;
+		n8.next = n9;
+
+		Node n11 = new Node(11);
+		Node n12 = new Node(12);
+		n11.next = n12;
+//		n12.next = n8;
+
+		Disp(n11);
+		Disp(n1);
+
+		System.out.println(Inter_2_LL(n11, n1));
+	}
+
+	private void Disp(Node temp) {
+
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+//			Jump
+			temp = temp.next;
+		}
+		System.out.println("");
+		System.out.println("---------------------------");
+	}
+
 }
