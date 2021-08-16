@@ -15,12 +15,12 @@ public class Client_BT {
 //		System.out.println(BB.Diameter());
 //		System.out.println(BB.Diameter1());
 //		System.out.println(BB.Diameter2());
-		int[] in = {40,20,50,10,30,70};
-		int[] pre = {10,20,40,50,30,70};
+		int[] in = {15,20,25,30,35,40};
+		int[] pre = {30,20,15,25,40,35};
 		BTree BB = new BTree(in, pre);
 		BB.Disp();
-		BB.lvl_Trav2();
-		
+//		BB.lvl_Trav2();
+		System.out.println(BB.isBst());
 		
 	}
 }

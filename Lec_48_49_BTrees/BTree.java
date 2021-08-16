@@ -13,12 +13,12 @@ public class BTree {
 
 	private Node root;
 
-	public BTree(int[] in,  int[] pre) {
-		root = Cons(in, 0, in.length-1, pre, 0, pre.length-1);
+	public BTree(int[] in, int[] pre) {
+		root = Cons(in, 0, in.length - 1, pre, 0, pre.length - 1);
 	}
 
 	public Node Cons(int[] in, int i_s, int i_e, int[] pre, int p_s, int p_e) {
-		if(i_s>i_e||p_s>p_e) {
+		if (i_s > i_e || p_s > p_e) {
 			return null;
 		}
 		int root = pre[p_s];
@@ -36,7 +36,7 @@ public class BTree {
 
 		n.left = Cons(in, i_s, found - 1, pre, p_s + 1, p_s + L_num);
 		n.right = Cons(in, found + 1, i_e, pre, p_s + L_num + 1, p_e);
-		
+
 		return n;
 
 	}
@@ -407,46 +407,145 @@ public class BTree {
 
 		return noflip || flip;
 	}
+
 	public void lvl_Trav() {
-		Queue<Node> Q = new LinkedList<>(); 
+		Queue<Node> Q = new LinkedList<>();
 		Q.add(root);
-		while(!Q.isEmpty()) {
+		while (!Q.isEmpty()) {
 			Node Curr = Q.poll();
-			if(Curr==null) {
+			if (Curr == null) {
 				continue;
 			}
-			
+
 //			Self Work
-			System.out.print(Curr.data+ " ");
+			System.out.print(Curr.data + " ");
 //			Add children
-			
+
 			Q.add(Curr.left);
 			Q.add(Curr.right);
 		}
 	}
+
 	public void lvl_Trav2() {
 		Queue<Node> Curr_lvl = new LinkedList<>();
 		Queue<Node> Next_lvl = new LinkedList<>();
-		
+
 		Curr_lvl.add(root);
-		while(!Curr_lvl.isEmpty()) {
+		while (!Curr_lvl.isEmpty()) {
 			Node Curr = Curr_lvl.poll();
-			if(Curr==null) {
+			if (Curr == null) {
 				continue;
 			}
-			
+
 //			Self Work
-			System.out.print(Curr.data+ " ");
+			System.out.print(Curr.data + " ");
 //			Add children
-			
+
 			Next_lvl.add(Curr.left);
 			Next_lvl.add(Curr.right);
-			
-			if(Curr_lvl.isEmpty()) {
+
+			if (Curr_lvl.isEmpty()) {
 				Curr_lvl = Next_lvl;
 				Next_lvl = new LinkedList<Node>();
 				System.out.println();
 			}
 		}
+	}
+
+	public int Min() {
+		return Min(root);
+	}
+
+	private int Min(Node nn) {
+		if (nn == null) {
+			return Integer.MAX_VALUE;
+		}
+		int Min_L = Min(nn.left);
+		int Min_R = Min(nn.right);
+
+		return Math.min(nn.data, Math.min(Min_L, Min_R));
+	}
+
+	public boolean isBst() {
+		Pair_bst ll = isBst2(root);
+		System.out.println(ll.min + " - " + ll.max + " - " + ll.isBst);
+		return ll.isBst;
+	}
+
+	private boolean isBst(Node Curr) {
+		if (Curr == null) {
+			return true;
+		}
+		boolean Left_BST = isBst(Curr.left);
+		boolean Right_BST = isBst(Curr.right);
+		if (Left_BST && Right_BST) {
+			int Left_max = Max(Curr.left);
+			int Right_min = Min(Curr.right);
+//			if(Left_max<=Curr.data &&Right_min>Curr.data) {
+//				return true;
+//			}
+			return Left_max <= Curr.data && Right_min > Curr.data;
+		} else {
+			return false;
+		}
+
+	}
+
+	class Pair_bst {
+		boolean isBst = true;
+		int min = Integer.MAX_VALUE;
+		int max = Integer.MIN_VALUE;
+		int Curr_size = 0;
+		int Max_size = 0;
+		int Max_BST_root = 0;
+	}
+
+	private Pair_bst isBst2(Node Curr) {
+		if (Curr == null) {
+			return new Pair_bst();
+		}
+
+		Pair_bst ans = new Pair_bst();
+
+		Pair_bst Left = isBst2(Curr.left);
+		Pair_bst Right = isBst2(Curr.right);
+
+		int Left_max = Left.max;
+		int Right_min = Right.min;
+
+		ans.Curr_size = Left.Curr_size + Right.Curr_size + 1;
+
+		if (Left_max <= Curr.data && Right_min > Curr.data && Left.isBst && Right.isBst) {
+			
+			ans.isBst = true;
+//			Approach 1 using globall variables
+//				System.out.println("BST NODE!!! with size "+ Size(Curr));
+//				if(Size(Curr) >global_size) {
+//					global_size= Size(Curr);
+//					biggest_bst_root = Curr.data;
+//				}	
+
+//			Approach 2
+
+			ans.Max_size = Left.Curr_size + Right.Curr_size + 1;
+
+		} else {
+			ans.isBst = false;
+			if(Left.Max_size >Right.Max_size) {
+				ans.Max_BST_root = Left.Max_BST_root;
+				ans.Max_size = Left.Max_size;
+			}
+			else {
+				ans.Max_BST_root = Right.Max_BST_root;
+				ans.Max_size = Right.Max_size;
+			}
+		}
+
+//		Do remaing work!! 
+		ans.min = Math.min(Curr.data, Math.min(Left.min, Right.min));
+
+		ans.max = Math.max(Curr.data, Math.max(Left.max, Right.max));
+		
+		return ans;
 	}
 }
