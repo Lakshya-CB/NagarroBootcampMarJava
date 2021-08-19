@@ -1,5 +1,6 @@
 package Lec_52;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Queue;
 
@@ -40,13 +41,20 @@ public class Client {
 		
 
 	}
-	static class RankComp implements Comparator<Student>{
+	static class RankComp implements Comparator<String>{
 
 		@Override
-		public int compare(Student o1, Student o2) {
+		public int compare(String o1, String o2) {
 			// TODO Auto-generated method stub
-			return o2.rank-o1.rank;
+			
+			return 0;
 		}
+
+//		@Override
+//		public int compare(Student o1, Student o2) {
+//			// TODO Auto-generated method stub
+//			return o2.rank-o1.rank;
+//		}
 		
 	}
 	class AgeComp implements Comparator<Student>{
@@ -71,6 +79,7 @@ public class Client {
 //		disp(arr2);
 		BST<Student> BS = new BST<>(arr2);
 		BS.Disp();
+		Collections.sort(null);
 	}
 
 	public static <OO1> void disp(OO1[] arr) {
@@ -88,6 +97,23 @@ public class Client {
 //				if(arr[i].compareTo(arr[i+1])>0) {
 //					Swap
 				if(obj.compare(arr[i],arr[i+1])>0) {
+					OO temp = arr[i];
+					
+					arr[i]= arr[i+1];
+					arr[i+1]= temp;
+				}
+			}
+		}
+	}
+	public static <OO extends Comparable>void sort(OO[] arr) {
+		
+		for(int count =0;count<arr.length-1;count++) {
+			for(int i=0;i<arr.length-count-1;i++) {
+				
+//				if(arr[i]>arr[i+1]) {
+				if(arr[i].compareTo(arr[i+1])>0) {
+//					Swap
+//				if(obj.compare(arr[i],arr[i+1])>0) {
 					OO temp = arr[i];
 					
 					arr[i]= arr[i+1];
