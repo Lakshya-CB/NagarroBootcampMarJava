@@ -10,8 +10,13 @@ public class client {
 		H.add(5);
 		H.add(500);
 		H.add(2);
-		System.out.println(H.peek());
-		H.disp();
+//		System.out.println(H.peek());
+//		H.disp();
+		System.out.println(H.poll());
+		System.out.println(H.poll());
+		System.out.println(H.poll());
+		System.out.println(H.poll());
+		System.out.println(H.poll());
 		
 	}
 }
