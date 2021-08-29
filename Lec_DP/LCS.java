@@ -51,4 +51,21 @@ public class LCS {
 			return Math.max(sp1, sp2);
 		}
 	}
+	public static int BU(String word1, String word2) {
+		int[][] dp = new int[word1.length()+1][word2.length()+1];
+		for(int w1 = word1.length()-1; w1>=0;w1--) {
+			for(int w2 = word2.length()-1;w2>=0;w2--) {
+//				nor create the solution of dp[w1][w2];
+				if (word1.charAt(w1) == word2.charAt(w2)) {
+					dp[w1][w2]= 1 + dp[w1+1][w2+1];
+				} else {
+					int sp1 = dp[w1+1][w2];
+					int sp2 = dp[w1][w2+1];
+					dp[w1][w2]=Math.max(sp1, sp2);
+				}
+			}
+		}
+		return dp[0][0];
+		
+	}
 }

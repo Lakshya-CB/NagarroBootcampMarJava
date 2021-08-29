@@ -11,9 +11,11 @@ public class House_robbbb {
 		if (idx >= nums.length) {
 			return 0;
 		}
+		
 		if (dp[idx] != -1) {
 			return dp[idx];
 		}
+		
 		int C1 = nums[idx] + rec(nums, idx + 2, dp);
 		int C2 = rec(nums, idx + 1, dp);
 
@@ -25,7 +27,6 @@ public class House_robbbb {
 	public static int BU(int[] nums) {
 		int[] dp = new int[nums.length+2];
 		for (int i = nums.length - 1; i >= 0; i--) {
-			
 			int C1 = nums[i] + dp[i + 2];
 			int C2 = dp[i + 1];
 
@@ -38,7 +39,7 @@ public class House_robbbb {
 	        if(nums.length==1){
 	            return nums[0];
 	        }
-//	         Case 1: excluse last house!!
+//	         Case 1: exclusive last house!!
 	        int[] dp_C1 = new int[402];
 			for (int i = nums.length - 2; i >= 0; i--) {
 				int C1 = nums[i] + dp_C1[i + 2];
@@ -47,7 +48,7 @@ public class House_robbbb {
 			}
 	        int C11 = dp_C1[0];
 	        
-//	         Case 2: excluse first house!!
+//	         Case 2: exclusive first house!!
 	        int[] dp_C2 = new int[402];
 			for (int i = nums.length - 1; i >= 1; i--) {
 				int C1 = nums[i] + dp_C2[i + 2];
