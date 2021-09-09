@@ -112,9 +112,9 @@ public class Graph {
 	public boolean isCycle_BFS() {
 		HashSet<Integer> Visited = new HashSet<Integer>();
 		Queue<Integer> Q = new LinkedList<>();
-		int ans_num_com=0;
+		int ans_num_com = 0;
 		for (int src : map.keySet()) {
-			if(Visited.contains(src)) {
+			if (Visited.contains(src)) {
 				continue;
 			}
 			Q.add(src);
@@ -143,9 +143,9 @@ public class Graph {
 	public int num_Components() {
 		HashSet<Integer> Visited = new HashSet<Integer>();
 		Queue<Integer> Q = new LinkedList<>();
-		int ans_num_com=0;
+		int ans_num_com = 0;
 		for (int src : map.keySet()) {
-			if(Visited.contains(src)) {
+			if (Visited.contains(src)) {
 				continue;
 			}
 			Q.add(src);
@@ -169,7 +169,48 @@ public class Graph {
 		}
 		return ans_num_com;
 	}
+
 	public boolean isTree() {
-		return num_Components()==1 && !isCycle_BFS();
+		return num_Components() == 1 && !isCycle_BFS();
+	}
+
+	class Dijkstra_Pair implements Comparable<Dijkstra_Pair>{
+		int V;
+		int path_cost;
+
+		public Dijkstra_Pair(int VV, int D) {
+			// TODO Auto-generated constructor stub
+			V = VV;
+			path_cost = D;
+		}
+
+		@Override
+		public int compareTo(Dijkstra_Pair o) {
+			// TODO Auto-generated method stub
+			
+			return this.path_cost-o.path_cost;
+		}
+	}
+
+	public void Dijkstra(int src) {
+		PriorityQueue<Dijkstra_Pair> PQ = new PriorityQueue<Dijkstra_Pair>();
+		PQ.add(new Dijkstra_Pair(src, 0));
+		HashSet<Integer> Visited = new HashSet<Integer>();
+		while (!PQ.isEmpty()) {
+			Dijkstra_Pair Curr = PQ.poll();
+			if (Visited.contains(Curr.V)) {
+				continue;
+			}
+			Visited.add(Curr.V);
+
+			System.out.println(src + "  - " + Curr.V + " = " + Curr.path_cost);
+
+			for (int nbr : map.get(Curr.V).keySet()) {
+				if (!Visited.contains(nbr)) {
+					int edge = Curr.path_cost + map.get(Curr.V).get(nbr);
+					PQ.add(new Dijkstra_Pair(nbr, edge));
+				}
+			}
+		}
 	}
 }

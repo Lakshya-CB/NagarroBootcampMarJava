@@ -1,7 +1,15 @@
 package Lec_Graph;
 import java.util.*;
+
+
 // https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
 public class Node_dist_k {
+	class TreeNode {
+		int val;
+		TreeNode left;
+		TreeNode right;
+		
+	}
 	HashMap<TreeNode,HashMap<TreeNode,Integer>> map;
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         map = new HashMap<>();
@@ -28,7 +36,5 @@ public class Node_dist_k {
             map.get(root).put(root.right,0);
             map.get(root.right).put(root,0);
         }
-        
     }
-
 }
