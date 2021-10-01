@@ -20,7 +20,7 @@ public class NFS {
 		}
 		all("0 ", map, in2, 0, 0, false, false);
 	}
-
+	
 	public static void all(String path, ArrayList<ArrayList<Integer>> map, String[] pow, int Curr_pos, double time,
 			boolean nos, boolean sand) {
 		if (Curr_pos == map.size() - 1) {
