@@ -22,7 +22,7 @@ public class Quick_wrt {
 		int left = start;
 		int right = end;
 		
-		while (true) {
+		while (left <= right) {
 			// move Left index!!
 			while (arr[left] < pivoot) {
 				left++;
